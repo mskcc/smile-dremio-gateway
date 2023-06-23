@@ -42,6 +42,7 @@ func NewService(smile SmileSubscriber, repo Repository) (*Service, error) {
 
 func (svc *Service) Run(ctx context.Context) error {
 
+	log.Println("Starting up SMILE consumer...")
 	newRequestCh := make(chan RequestAdaptor, requestBufSize)
 	updateRequestCh := make(chan RequestAdaptor, requestBufSize)
 	updateSampleCh := make(chan SampleAdaptor, sampleBufSize)
@@ -49,6 +50,7 @@ func (svc *Service) Run(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+	log.Println("SMILE consumer running...")
 
 	var nrwg sync.WaitGroup
 	var urwg sync.WaitGroup
@@ -57,6 +59,7 @@ func (svc *Service) Run(ctx context.Context) error {
 		select {
 		case ra := <-newRequestCh:
 			nrwg.Add(1)
+			log.Printf("Processing add request: %s\n", ra.Requests[0].IgoRequestID)
 			go func() {
 				defer nrwg.Done()
 				err := svc.repo.AddRequest(ctx, ra.Requests[0])
@@ -66,8 +69,10 @@ func (svc *Service) Run(ctx context.Context) error {
 				// if we don't ack, we will keep getting message
 				svc.smile.AckRequest(ra)
 			}()
+			log.Println("Processing add request complete")
 		case ra := <-updateRequestCh:
 			urwg.Add(1)
+			log.Printf("Processing update request: %s\n", ra.Requests[0].IgoRequestID)
 			go func() {
 				defer urwg.Done()
 				err := svc.repo.UpdateRequest(ctx, ra.Requests)
@@ -77,8 +82,10 @@ func (svc *Service) Run(ctx context.Context) error {
 				// if we don't ack, we will keep getting message
 				svc.smile.AckRequest(ra)
 			}()
+			log.Println("Processing update request complete")
 		case sa := <-updateSampleCh:
 			uswg.Add(1)
+			log.Printf("Processing update sample: %s\n", sa.Samples[0].CmoSampleName)
 			go func() {
 				defer uswg.Done()
 				err := svc.repo.UpdateSample(ctx, sa.Samples)
@@ -88,6 +95,7 @@ func (svc *Service) Run(ctx context.Context) error {
 				// if we don't ack, we will keep getting message
 				svc.smile.AckSample(sa)
 			}()
+			log.Println("Processing update sample complete")
 		case <-ctx.Done():
 			log.Println("Context canceled, returning...")
 			// tbd: check for messages being processed
