@@ -132,6 +132,21 @@ func (r *DremioRepository) removeRequest(af *arrowflight.ArrowFlight, sr smile.R
 }
 
 func (r *DremioRepository) insertSamples(af *arrowflight.ArrowFlight, sr smile.Request) error {
+	for _, s := range sr.Samples {
+		sJson, err := json.Marshal(s)
+		if err != nil {
+			return err
+		}
+		query := fmt.Sprintf("insert into %s.%s values ('%s', '%s', '%s', '%s')", r.args.ObjectStore, r.args.SampleTable, sr.IgoRequestID, s.SampleName, s.CmoSampleName, string(sJson))
+		_, err = af.Query(query)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (r *DremioRepository) insertSamplesOptimized(af *arrowflight.ArrowFlight, sr smile.Request) error {
 
 	var b strings.Builder
 	fmt.Fprintf(&b, "insert into %s.%s values ", r.args.ObjectStore, r.args.SampleTable)
