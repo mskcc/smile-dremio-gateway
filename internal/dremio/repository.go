@@ -6,8 +6,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/apache/arrow/go/arrow/array"
-	"github.com/knowledgesystems/smile-dremio-gateway/internal/arrowflight"
-	"github.com/knowledgesystems/smile-dremio-gateway/internal/smile"
+	"github.com/mskcc/smile-dremio-gateway/internal/arrowflight"
+	"github.com/mskcc/smile-dremio-gateway/internal/smile"
 	"strings"
 )
 

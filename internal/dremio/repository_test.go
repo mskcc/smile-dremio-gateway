@@ -3,8 +3,8 @@ package dremio_test
 import (
 	"context"
 	"encoding/json"
-	"github.com/knowledgesystems/smile-dremio-gateway/internal/dremio"
-	"github.com/knowledgesystems/smile-dremio-gateway/internal/smile"
+	"github.com/mskcc/smile-dremio-gateway/internal/dremio"
+	"github.com/mskcc/smile-dremio-gateway/internal/smile"
 	"testing"
 )
 

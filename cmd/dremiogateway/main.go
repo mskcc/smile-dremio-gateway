@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"errors"
-	"github.com/knowledgesystems/smile-dremio-gateway/internal/dremio"
-	"github.com/knowledgesystems/smile-dremio-gateway/internal/smile"
+	"github.com/mskcc/smile-dremio-gateway/internal/dremio"
+	"github.com/mskcc/smile-dremio-gateway/internal/smile"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"log"
