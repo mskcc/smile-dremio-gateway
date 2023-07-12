@@ -1,4 +1,4 @@
-module github.com/knowledgesystems/smile-dremio-gateway
+module github.com/mskcc/smile-dremio-gateway
 
 go 1.19
 
