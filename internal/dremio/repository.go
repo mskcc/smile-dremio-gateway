@@ -137,7 +137,7 @@ func (r *DremioRepository) insertSamples(af *arrowflight.ArrowFlight, sr smile.R
 		if err != nil {
 			return err
 		}
-		query := fmt.Sprintf("insert into %s.%s values ('%s', '%s', '%s', '%s')", r.args.ObjectStore, r.args.SampleTable, sr.IgoRequestID, s.SampleName, s.CmoSampleName, string(sJson))
+		query := fmt.Sprintf("insert into %s.%s values ('%s', '%s', '%s', '%s', '%s')", r.args.ObjectStore, r.args.SampleTable, sr.IgoRequestID, s.SampleName, s.CmoSampleName, s.CFDNA2DBarcode, string(sJson))
 		_, err = af.Query(query)
 		if err != nil {
 			return err
@@ -155,7 +155,7 @@ func (r *DremioRepository) insertSamplesOptimized(af *arrowflight.ArrowFlight, s
 		if err != nil {
 			return err
 		}
-		fmt.Fprintf(&b, "('%s', '%s', '%s', '%s'),", sr.IgoRequestID, s.SampleName, s.CmoSampleName, string(sJson))
+		fmt.Fprintf(&b, "('%s', '%s', '%s', '%s', '%s'),", sr.IgoRequestID, s.SampleName, s.CmoSampleName, s.CFDNA2DBarcode, string(sJson))
 	}
 	query := b.String()
 	query = strings.TrimRight(query, ",")
@@ -261,9 +261,9 @@ func (r *DremioRepository) updateSample(af *arrowflight.ArrowFlight, s []smile.S
 	if err != nil {
 		return err
 	}
-	// []smile.Sample is an ordered list of metadata in decending order:
+	// []smile.Sample is an ordered list of metadata in descending order:
 	// s[0] is most recent, s[1] is what is currently in dremio table
-	query := fmt.Sprintf("update %s.%s set IGO_REQUEST_ID = '%s', IGO_SAMPLE_NAME = '%s', CMO_SAMPLE_NAME = '%s', SAMPLE_JSON = '%s' where IGO_REQUEST_ID = '%s' and IGO_SAMPLE_NAME = '%s' and CMO_SAMPLE_NAME = '%s'", r.args.ObjectStore, r.args.SampleTable, s[0].AdditionalProperties.IgoRequestID, s[0].SampleName, s[0].CmoSampleName, string(sJson), s[1].AdditionalProperties.IgoRequestID, s[1].SampleName, s[1].CmoSampleName)
+	query := fmt.Sprintf("update %s.%s set IGO_REQUEST_ID = '%s', IGO_SAMPLE_NAME = '%s', CMO_SAMPLE_NAME = '%s', CFDNA2DBARCODE = '%s', SAMPLE_JSON = '%s' where IGO_REQUEST_ID = '%s' and IGO_SAMPLE_NAME = '%s' and CMO_SAMPLE_NAME = '%s' and CFDNA2DBARCODE = '%s'", r.args.ObjectStore, r.args.SampleTable, s[0].AdditionalProperties.IgoRequestID, s[0].SampleName, s[0].CmoSampleName, s[0].CFDNA2DBarcode, string(sJson), s[1].AdditionalProperties.IgoRequestID, s[1].SampleName, s[1].CmoSampleName, s[1].CFDNA2DBarcode)
 	rdr, err := af.Query(query)
 	if err != nil {
 		return err
@@ -278,7 +278,7 @@ func (r *DremioRepository) updateSample(af *arrowflight.ArrowFlight, s []smile.S
 				case "Records":
 					result := rec.Column(j).(*array.Int64).Value(i)
 					if result == 0 {
-						return fmt.Errorf("Update failed, most likely cause is IGO Request Id or IGO_SAMPLE_NAME or CMO_SAMPLE_NAME in where close cannot be found: %s %s %s", s[1].AdditionalProperties.IgoRequestID, s[1].SampleName, s[1].CmoSampleName)
+						return fmt.Errorf("Update failed, most likely cause is IGO_REQUEST_ID or IGO_SAMPLE_NAME or CMO_SAMPLE_NAME or CFDNA2DBARCODE in where close cannot be found: %s %s %s %s", s[1].AdditionalProperties.IgoRequestID, s[1].SampleName, s[1].CmoSampleName, s[1].CFDNA2DBarcode)
 					}
 				}
 			}
