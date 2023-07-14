@@ -75,6 +75,7 @@ type Sample struct {
 	OncotreeCode         string               `json:"oncotreeCode"`
 	CollectionYear       string               `json:"collectionYear"`
 	TubeID               string               `json:"tubeId"`
+	CFDNA2DBarcode       string               `json:"cfDNA2dBarcode"` 
 	QcReports            []QcReports          `json:"qcReports"`
 	Libraries            []Libraries          `json:"libraries"`
 	CmoPatientID         string               `json:"cmoPatientId"`
