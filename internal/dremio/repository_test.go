@@ -36,6 +36,7 @@ var newRequest = `
       "oncotreeCode": "TPLL",
       "collectionYear": "",
       "tubeId": "4157451784",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -124,6 +125,7 @@ var newRequest = `
       "oncotreeCode": "MPNWP",
       "collectionYear": "2018",
       "tubeId": "",
+      "cfDNA2dBarcode": "",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -215,6 +217,7 @@ var newRequest = `
       "oncotreeCode": "SARCNOS",
       "collectionYear": "2018",
       "tubeId": "TS-189768.2.T",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -306,6 +309,7 @@ var newRequest = `
       "oncotreeCode": "PAAD",
       "collectionYear": "2017",
       "tubeId": "181446.13.T",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -397,6 +401,7 @@ var newRequest = `
       "oncotreeCode": "COAD",
       "collectionYear": "",
       "tubeId": "8027185112",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -455,6 +460,7 @@ var newRequest = `
       "oncotreeCode": "SARCNOS",
       "collectionYear": "2019",
       "tubeId": "BLD-12345",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -546,6 +552,7 @@ var newRequest = `
       "oncotreeCode": "MACR",
       "collectionYear": "2018",
       "tubeId": "",
+      "cfDNA2dBarcode": "",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -637,6 +644,7 @@ var newRequest = `
       "oncotreeCode": "CHOS",
       "collectionYear": "2019",
       "tubeId": "TS-193394.2.T",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -728,6 +736,7 @@ var newRequest = `
       "oncotreeCode": "TAML",
       "collectionYear": "2019",
       "tubeId": "BLD-33777",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -819,6 +828,7 @@ var newRequest = `
       "oncotreeCode": "MPNWP",
       "collectionYear": "2019",
       "tubeId": "TS-019273.5.T",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -910,6 +920,7 @@ var newRequest = `
       "oncotreeCode": "MPNWP",
       "collectionYear": "2018",
       "tubeId": "TS-191305.1.T",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -1001,6 +1012,7 @@ var newRequest = `
       "oncotreeCode": "GBC",
       "collectionYear": "2018",
       "tubeId": "TS-54321.9.T",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -1092,6 +1104,7 @@ var newRequest = `
       "oncotreeCode": "MPNWP",
       "collectionYear": "2019",
       "tubeId": "BLD-99111 BC",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -1183,6 +1196,7 @@ var newRequest = `
       "oncotreeCode": "MACR",
       "collectionYear": "2017",
       "tubeId": "BLD-98765 BC",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -1274,6 +1288,7 @@ var newRequest = `
       "oncotreeCode": "COAD",
       "collectionYear": "",
       "tubeId": "TS.928838.4.T",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -1365,6 +1380,7 @@ var newRequest = `
       "oncotreeCode": "TAML",
       "collectionYear": "2019",
       "tubeId": "TS-223344.0.T",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -1456,6 +1472,7 @@ var newRequest = `
       "oncotreeCode": "PAAD",
       "collectionYear": "2017",
       "tubeId": "88354511236",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -1547,6 +1564,7 @@ var newRequest = `
       "oncotreeCode": "GBC",
       "collectionYear": "2018",
       "tubeId": "BLD-98765",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -1638,6 +1656,7 @@ var newRequest = `
       "oncotreeCode": "GBC",
       "collectionYear": "",
       "tubeId": "",
+      "cfDNA2dBarcode": "",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -1729,6 +1748,7 @@ var newRequest = `
       "oncotreeCode": "CHOS",
       "collectionYear": "2019",
       "tubeId": "BLD-98981 BC",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -1820,6 +1840,7 @@ var newRequest = `
       "oncotreeCode": "MACR",
       "collectionYear": "2018",
       "tubeId": "TS-828282",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -1911,6 +1932,7 @@ var newRequest = `
       "oncotreeCode": "MACR",
       "collectionYear": "2019",
       "tubeId": "TS-888999.1.T",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -2073,6 +2095,7 @@ var updatedSample = `
       "oncotreeCode": "TPLL",
       "collectionYear": "",
       "tubeId": "4157451784",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -2159,6 +2182,7 @@ var updatedSample = `
       "oncotreeCode": "TPLL",
       "collectionYear": "",
       "tubeId": "4157451784",
+      "cfDNA2dBarcode": "8029250670",
       "qcReports": [
         {
           "qcReportType": "LIBRARY",
@@ -2245,7 +2269,7 @@ var dArgs = dremio.DremioArgs{
 	Host:         "localhost",
 	Username:     "",
 	Password:     "",
-	ObjectStore:  "\"localhost-minio\".smile",
+	ObjectStore:  "\"local-minio\".smile",
 	RequestTable: "requests",
 	SampleTable:  "samples",
 }
