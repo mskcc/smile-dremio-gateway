@@ -58,16 +58,14 @@ func (r *DremioRepository) AddRequest(ctx context.Context, sr smile.Request) err
 	if err != nil {
 		return err
 	}
-	if existingRequests != nil {
-		if len(existingRequests) > 0 {
-			err = r.removeRequest(af, existingRequests[0])
-			if err != nil {
-				return err
-			}
-			err = r.removeSamples(af, existingRequests[0])
-			if err != nil {
-				return err
-			}
+	if len(existingRequests) > 0 {
+		err = r.removeRequest(af, existingRequests[0])
+		if err != nil {
+			return err
+		}
+		err = r.removeSamples(af, existingRequests[0])
+		if err != nil {
+			return err
 		}
 	}
 
@@ -92,13 +90,13 @@ func (r *DremioRepository) AddRequest(ctx context.Context, sr smile.Request) err
 }
 
 func (r *DremioRepository) getRequests(af *arrowflight.ArrowFlight, sr smile.Request) ([]smile.Request, error) {
+	var requests []smile.Request
 	query := fmt.Sprintf("select * from %s.%s where IGO_REQUEST_ID = '%s'", r.args.ObjectStore, r.args.RequestTable, sr.IgoRequestID)
 	rdr, err := af.Query(query)
 	if err != nil {
-		return nil, err
+		return requests, err
 	}
 	defer rdr.Release()
-	var requests []smile.Request
 	for rdr.Next() {
 		rec := rdr.Record()
 		for i := 0; i < int(rec.NumRows()); i++ {
@@ -167,7 +165,7 @@ func (r *DremioRepository) insertSamplesOptimized(af *arrowflight.ArrowFlight, s
 }
 
 func (r *DremioRepository) insertRequest(af *arrowflight.ArrowFlight, sr smile.Request) error {
-	// clobber samples in sr,Samples[] before saving because they just got stored in the samples table
+	// clobber samples in sr.Samples[] before saving because they just got stored in the samples table
 	sr.Samples = sr.Samples[:0]
 	rJson, err := json.Marshal(sr)
 	if err != nil {
@@ -239,20 +237,55 @@ func (r *DremioRepository) updateRequest(af *arrowflight.ArrowFlight, sr []smile
 }
 
 func (r *DremioRepository) UpdateSample(ctx context.Context, s []smile.Sample) error {
-	if len(s) < 2 {
-		return fmt.Errorf("sample metadata array contains less than two entries: %d", len(s))
-	}
 	af, err := arrowflight.NewArrowFlight(r.args.Host, r.args.Username, r.args.Password)
 	if err != nil {
 		return err
 	}
 	defer af.FC.Close()
 
+	if len(s) < 2 {
+		// sample updates should have at least 2 versions of metadata
+		// it could be that this sample failed validation, was fixed, and is now being published as an update
+		// check if this samples request exists in request table, if so, insert sample directly
+		var sr smile.Request
+		sr.IgoRequestID = s[0].AdditionalProperties.IgoRequestID
+		existingRequest, err := r.getRequests(af, sr)
+		if err != nil {
+			return err
+		}
+		if len(existingRequest) > 0 {
+			// request record exists, lets just insert the sample directly and call it a day
+			err := r.insertSample(af, s[0])
+			if err != nil {
+				return err
+			} else {
+				return nil
+			}
+		} else {
+			// the request does not exist
+			return fmt.Errorf("sample metadata array contains less than two entries and request does not exist (SampleName, RequestID): (%s, %s)", s[0].SampleName, s[0].AdditionalProperties.IgoRequestID)
+		}
+	}
+
 	err = r.updateSample(af, s)
 	if err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// used when we get an sample update message, but the sample does not already exist in the dremo sample table
+func (r *DremioRepository) insertSample(af *arrowflight.ArrowFlight, s smile.Sample) error {
+	sJson, err := json.Marshal(s)
+	if err != nil {
+		return err
+	}
+	query := fmt.Sprintf("insert into %s.%s values ('%s', '%s', '%s', '%s', '%s')", r.args.ObjectStore, r.args.SampleTable, s.AdditionalProperties.IgoRequestID, s.SampleName, s.CmoSampleName, s.CFDNA2DBarcode, string(sJson))
+	_, err = af.Query(query)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
