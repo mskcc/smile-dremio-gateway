@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/apache/arrow/go/arrow v0.0.0-20211112161151-bc219186db40
 	github.com/google/uuid v1.3.0
-	github.com/knowledgesystems/nats-messaging-go v0.0.0-20230623012018-a4e86aaa325b
+	github.com/mskcc/nats-messaging-go v0.0.0-20231004165948-64e20b5a6751
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.15.0
 	google.golang.org/grpc v1.52.0

@@ -3,7 +3,7 @@ package smile
 import (
 	"encoding/json"
 	"errors"
-	nm "github.com/knowledgesystems/nats-messaging-go"
+	nm "github.com/mskcc/nats-messaging-go"
 	"log"
 	"strconv"
 )
